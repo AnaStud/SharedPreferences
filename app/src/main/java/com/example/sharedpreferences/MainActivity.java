@@ -36,9 +36,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show();
         } else {
             try {
-                Type type = new TypeToken<ArrayList<UserNote>>() {
-                }.getType();
-                notesAdapter.setNewData(new GsonBuilder().create().fromJson(savedNotes, type));
+                Type type = new TypeToken<ArrayList<UserNote>>(){}.getType();
+                ArrayList<UserNote> listOfNotes = new GsonBuilder().create().fromJson(savedNotes, type);
+                for (UserNote oneNote: listOfNotes) {
+                    userNotes.add(oneNote);
+                }
+                notesAdapter.setNewData(listOfNotes);
             } catch (JsonSyntaxException e) {
                 Toast.makeText(this, "Ошибка трансформации", Toast.LENGTH_SHORT).show();
             }
